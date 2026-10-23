@@ -1,0 +1,224 @@
+---
+name: Sanitary Protocol
+colors:
+  surface: '#f8f9ff'
+  surface-dim: '#cbdbf5'
+  surface-bright: '#f8f9ff'
+  surface-container-lowest: '#ffffff'
+  surface-container-low: '#eff4ff'
+  surface-container: '#e5eeff'
+  surface-container-high: '#dce9ff'
+  surface-container-highest: '#d3e4fe'
+  on-surface: '#0b1c30'
+  on-surface-variant: '#45464d'
+  inverse-surface: '#213145'
+  inverse-on-surface: '#eaf1ff'
+  outline: '#76777d'
+  outline-variant: '#c6c6cd'
+  surface-tint: '#565e74'
+  primary: '#000000'
+  on-primary: '#ffffff'
+  primary-container: '#131b2e'
+  on-primary-container: '#7c839b'
+  inverse-primary: '#bec6e0'
+  secondary: '#0051d5'
+  on-secondary: '#ffffff'
+  secondary-container: '#316bf3'
+  on-secondary-container: '#fefcff'
+  tertiary: '#000000'
+  on-tertiary: '#ffffff'
+  tertiary-container: '#002113'
+  on-tertiary-container: '#009668'
+  error: '#ba1a1a'
+  on-error: '#ffffff'
+  error-container: '#ffdad6'
+  on-error-container: '#93000a'
+  primary-fixed: '#dae2fd'
+  primary-fixed-dim: '#bec6e0'
+  on-primary-fixed: '#131b2e'
+  on-primary-fixed-variant: '#3f465c'
+  secondary-fixed: '#dbe1ff'
+  secondary-fixed-dim: '#b4c5ff'
+  on-secondary-fixed: '#00174b'
+  on-secondary-fixed-variant: '#003ea8'
+  tertiary-fixed: '#6ffbbe'
+  tertiary-fixed-dim: '#4edea3'
+  on-tertiary-fixed: '#002113'
+  on-tertiary-fixed-variant: '#005236'
+  background: '#f8f9ff'
+  on-background: '#0b1c30'
+  surface-variant: '#d3e4fe'
+typography:
+  display:
+    fontFamily: Inter
+    fontSize: 2.25rem
+    fontWeight: '700'
+    lineHeight: 2.75rem
+    letterSpacing: -0.025em
+  headline-lg:
+    fontFamily: Inter
+    fontSize: 1.75rem
+    fontWeight: '600'
+    lineHeight: 2.25rem
+    letterSpacing: -0.02em
+  headline-lg-mobile:
+    fontFamily: Inter
+    fontSize: 1.375rem
+    fontWeight: '600'
+    lineHeight: 1.75rem
+    letterSpacing: -0.015em
+  headline-md:
+    fontFamily: Inter
+    fontSize: 1.25rem
+    fontWeight: '600'
+    lineHeight: 1.75rem
+    letterSpacing: -0.015em
+  headline-sm:
+    fontFamily: Inter
+    fontSize: 1.125rem
+    fontWeight: '600'
+    lineHeight: 1.5rem
+    letterSpacing: -0.01em
+  body-lg:
+    fontFamily: Inter
+    fontSize: 1rem
+    fontWeight: '400'
+    lineHeight: 1.5rem
+  body-md:
+    fontFamily: Inter
+    fontSize: 0.875rem
+    fontWeight: '400'
+    lineHeight: 1.25rem
+  body-sm:
+    fontFamily: Inter
+    fontSize: 0.75rem
+    fontWeight: '400'
+    lineHeight: 1rem
+  label-lg:
+    fontFamily: Inter
+    fontSize: 0.875rem
+    fontWeight: '600'
+    lineHeight: 1.25rem
+    letterSpacing: 0.01em
+  label-md:
+    fontFamily: Inter
+    fontSize: 0.75rem
+    fontWeight: '600'
+    lineHeight: 1rem
+    letterSpacing: 0.02em
+  label-sm:
+    fontFamily: Inter
+    fontSize: 0.6875rem
+    fontWeight: '600'
+    lineHeight: 0.875rem
+    letterSpacing: 0.03em
+rounded:
+  sm: 0.25rem
+  DEFAULT: 0.5rem
+  md: 0.75rem
+  lg: 1rem
+  xl: 1.5rem
+  full: 9999px
+spacing:
+  gutter: 1rem
+  gutter-desktop: 1.5rem
+  margin: 1rem
+  margin-tablet: 1.5rem
+  margin-desktop: 2rem
+  space-xs: 0.25rem
+  space-sm: 0.5rem
+  space-md: 1rem
+  space-lg: 1.5rem
+  space-xl: 2rem
+---
+
+## Brand & Style
+
+This design system serves institutional facility coordinators, head custodial staff, and campus administrators managing rigorous hygiene compliance. The emotional signature must balance clinical authority with operational calm—delivering high legibility in dimly lit maintenance closets as well as executive clarity on administrative desktop dashboards.
+
+The visual style blends **Corporate Functionalism** with **Modern Tactile Precision**:
+- High-structure information architecture prioritizing audit readiness, zone assignments, and completion states.
+- Clean planar layering that avoids skeuomorphic clutter while providing tangible, touch-optimized hit targets (minimum 48px) for staff on the move.
+- Strict visual discipline: functional color is reserved almost exclusively for operational statuses, real-time indicators, and critical actions.
+
+## Colors
+
+The palette leverages an institutional deep navy base accented by purposeful royal blue, grounded in pure light neutrals. Color functions as operational data rather than decorative fill.
+
+### Palette Architecture
+- **Primary (`#0F172A` / `#1E3A8A`)**: Deep Navy anchors key navigation anchors, top-level headers, and high-emphasis structural zones.
+- **Secondary (`#2563EB` / `#3B82F6`)**: Royal Blue designates primary user flow progression, focused selection borders, and active filters.
+- **Tertiary / Semantic Success (`#10B981`)**: Emerald Green denotes verified sanitization passes, completed audits, and approved task submissions.
+- **Neutral Core**: Canvas surfaces leverage crisp pure white (`#FFFFFF`) framed against nested surfaces in slate tints (`#F8FAFC` and `#F1F5F9`). Structural borders are uniformly `#E2E8F0`.
+- **Status Accents**:
+  - *Pending / In Progress*: Amber (`#F59E0B`) with tinted background fill (`#FFFBEB`).
+  - *Action Required / Flagged*: Rose Red (`#EF4444`) with tinted background fill (`#FEF2F2`).
+  - *Approved / Inspected*: Emerald Green (`#10B981`) with tinted background fill (`#ECFDF5`).
+
+Ensure text placed over status tokens maintains a minimum 4.5:1 contrast ratio against container fills. Never convey system state through color alone; accompany colors with iconographic and typographic labels.
+
+## Typography
+
+The typography uses Inter across all roles to ensure universal rendering, high legibility across low-tier mobile hardware, and distinct tabular figures for numeric tracking.
+
+- **Tabular Figures**: Data-heavy tables, room inventory counts, shift countdowns, and completion timestamps must apply `font-variant-numeric: tabular-nums` to eliminate layout jitter.
+- **Micro-Hierarchy**: Section headings inside functional inspection cards utilize `label-md` or `label-sm` with subtle uppercase tracking to distinguish administrative instructions from dynamic room logs.
+
+## Layout & Spacing
+
+The layout is built on an adaptive 12-column grid system (4-column on mobile, 8-column on tablet) designed for single-hand touch operation in field views and dense scanning in administrative views.
+
+### Breakpoints & Canvas Bounds
+- **Mobile (< 768px)**: 4 columns, `margin: 1rem`, `gutter: 1rem`. Bottom navigation patterns replace desktop side navigation. All primary verification actions stick to the bottom viewport edge with a safe-area inset.
+- **Tablet (768px – 1023px)**: 8 columns, `margin: 1.5rem`, `gutter: 1.25rem`. Two-column split for floor plans alongside task checklists.
+- **Desktop (≥ 1024px)**: 12 columns, `margin: 2rem`, `gutter: 1.5rem`, max-width bounded at `1440px`. Fixed collapsible sidebar navigation (`280px`).
+
+### Spatial Principles
+Components adhere strictly to an 8px base rhythm (`0.5rem` stepping). Vertical layout grouping must enforce closer proximity between task labels and checkbox controls (`space-xs` or `space-sm`) than between individual inspection task rows (`space-md`).
+
+## Elevation & Depth
+
+Visual hierarchy relies on crisp surface layering with low-contrast structural outlines rather than heavy atmospheric shadows. This maintains a clean, sterile, and professional feel.
+
+### Surface Hierarchy
+1. **Base Floor (Canvas)**: `#FFFFFF` or `#F8FAFC`.
+2. **Elevated Containers (Cards, Table Modules)**: Surface `#FFFFFF` with a 1px border (`#E2E8F0`) and an ultra-soft resting shadow:
+   `box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.02)`.
+3. **Floating Overlays (Sticky Bottom Rails, Dropdowns, Datepickers)**: Surface `#FFFFFF`, border `#E2E8F0`, with an elevated ambient shadow:
+   `box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.03)`.
+4. **Modals & Critical Alert Dialogs**: Positioned over a 40% opacity navy scrim (`rgba(15, 23, 42, 0.40)` with `backdrop-filter: blur(4px)`).
+
+## Shapes
+
+The design uses a calculated balance between welcoming accessibility and institutional discipline:
+
+- **Cards and Major Panels**: Use the `rounded-xl` token (`1.5rem` / `24px`) to create clear, friendly content modules that frame school cleaning zones.
+- **Buttons, Form Inputs, and Selectors**: Use standard rounded tokens (`0.5rem` / `8px`) to maintain crisp utilitarian clarity and clear boundary definition.
+- **Badges and Status Tags**: Fully pill-shaped (`9999px`) to create instantaneous geometric distinction against squared input rows and rectangular card perimeters.
+
+## Components
+
+### Buttons
+- **Primary**: Solid `#2563EB` background with `#FFFFFF` text. Minimum touch height of 48px on mobile views (`space-md` vertical padding). Active state dims to `#1D4ED8`. Focus state presents a 2px offset ring of `#3B82F6`.
+- **Secondary / Action Navy**: Solid `#0F172A` with `#FFFFFF` text for permanent actions (e.g., "Submit Audit Report").
+- **Tertiary / Outlined**: Transparent background, `#0F172A` text, 1px border of `#E2E8F0`. Hover shifts background to `#F8FAFC`.
+- **Destructive**: Background tint `#FEF2F2`, border `#FCA5A5`, text `#DC2626`.
+
+### Cards & Zone Panels
+- Base style: `#FFFFFF` surface enclosed by a 1px solid border (`#E2E8F0`), with `rounded-xl` (`1.5rem`) corner rounding.
+- Internal padding: `space-lg` (`1.5rem`) on desktop; scaled to `space-md` (`1rem`) on mobile.
+- Header region features zone metadata (e.g., "Science Wing - 2nd Floor") backed by subtle neutral fill `#F8FAFC` separated by an `#E2E8F0` divider line.
+
+### Status Chips & Badges
+- Pill-shaped (`rounded-full`), padding `0.25rem 0.75rem`, using `label-md` typography.
+- **Approved**: Border `#A7F3D0`, background `#ECFDF5`, text `#065F46`, paired with a checkmark glyph.
+- **Pending**: Border `#FDE68A`, background `#FFFBEB`, text `#92400E`, paired with a clock glyph.
+- **Rejected / Remediation Required**: Border `#FECACA`, background `#FEF2F2`, text `#991B1B`, paired with an alert-triangle glyph.
+
+### Form Inputs & Inspection Fields
+- **Text Inputs**: Height 48px, background `#FFFFFF`, border 1px solid `#CBD5E1`, rounded `0.5rem`. Placeholder text styled with `#94A3B8`. Active focus triggers a 1px border of `#2563EB` and a 3px ambient focus glow (`rgba(37, 99, 235, 0.15)`).
+- **Checkboxes & Radios**: 24px × 24px physical target size for frictionless mobile glove/finger tapping. Unchecked border 2px solid `#94A3B8`. Checked state fills `#2563EB` (or `#10B981` in audit mode) with a white icon.
+
+### Inspection Task Lists
+- Structured rows using alternating or bordered separation (`#E2E8F0`).
+- Each item displays: task title (`body-md`), frequency marker, status chip, and an instant-toggle completion state. Touch area across the entire row triggers the selection state.

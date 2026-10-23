@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><title>Admin - CleanSchool</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'secondary': '#0051d5', 'primary-container': '#131b2e', 'primary-fixed-dim': '#bec6e0', 'on-secondary-fixed-variant': '#003ea8', 'secondary-fixed': '#dbe1ff', 'on-tertiary-fixed': '#002113', 'inverse-surface': '#213145', 'background': '#f8f9ff', 'surface-container': '#e5eeff', 'tertiary-fixed': '#6ffbbe', 'on-secondary-container': '#fefcff', 'on-secondary': '#ffffff', 'on-primary-container': '#7c839b', 'surface': '#f8f9ff', 'secondary-fixed-dim': '#b4c5ff', 'surface-container-lowest': '#ffffff', 'error': '#ba1a1a', 'surface-bright': '#f8f9ff', 'on-primary-fixed': '#131b2e', 'on-tertiary-container': '#009668', 'surface-variant': '#d3e4fe', 'on-tertiary-fixed-variant': '#005236', 'outline-variant': '#c6c6cd', 'surface-container-high': '#dce9ff', 'on-background': '#0b1c30', 'on-secondary-fixed': '#00174b', 'tertiary-fixed-dim': '#4edea3', 'on-tertiary': '#ffffff', 'on-surface-variant': '#45464d', 'primary': '#000000', 'primary-fixed': '#dae2fd', 'on-surface': '#0b1c30', 'surface-dim': '#cbdbf5', 'on-primary': '#ffffff', 'surface-container-highest': '#d3e4fe', 'inverse-primary': '#bec6e0', 'tertiary': '#000000', 'on-primary-fixed-variant': '#3f465c', 'inverse-on-surface': '#eaf1ff', 'on-error': '#ffffff', 'surface-tint': '#565e74', 'surface-container-low': '#eff4ff', 'error-container': '#ffdad6', 'secondary-container': '#316bf3', 'outline': '#76777d', 'tertiary-container': '#002113', 'on-error-container': '#93000a' }, borderRadius: { 'DEFAULT': '0.25rem', 'lg': '0.5rem', 'xl': '0.75rem', 'full': '9999px' }, spacing: { 'space-xl': '2rem', 'space-xs': '0.25rem', 'gutter-desktop': '1.5rem', 'space-sm': '0.5rem', 'space-md': '1rem', 'gutter': '1rem', 'margin-tablet': '1.5rem', 'margin': '1rem', 'margin-desktop': '2rem', 'space-lg': '1.5rem' }, fontFamily: { 'body-sm': ['Inter'], 'headline-lg': ['Inter'], 'headline-md': ['Inter'], 'label-sm': ['Inter'], 'headline-lg-mobile': ['Inter'], 'display': ['Inter'], 'body-md': ['Inter'], 'headline-sm': ['Inter'], 'label-lg': ['Inter'], 'label-md': ['Inter'], 'body-lg': ['Inter'] }, fontSize: { 'body-sm': ['0.75rem', { lineHeight: '1rem', fontWeight: '400' }], 'headline-lg': ['1.75rem', { lineHeight: '2.25rem', letterSpacing: '-0.02em', fontWeight: '600' }], 'headline-md': ['1.25rem', { lineHeight: '1.75rem', letterSpacing: '-0.015em', fontWeight: '600' }], 'label-sm': ['0.6875rem', { lineHeight: '0.875rem', letterSpacing: '0.03em', fontWeight: '600' }], 'headline-lg-mobile': ['1.375rem', { lineHeight: '1.75rem', letterSpacing: '-0.015em', fontWeight: '600' }], 'display': ['2.25rem', { lineHeight: '2.75rem', letterSpacing: '-0.025em', fontWeight: '700' }], 'body-md': ['0.875rem', { lineHeight: '1.25rem', fontWeight: '400' }], 'headline-sm': ['1.125rem', { lineHeight: '1.5rem', letterSpacing: '-0.01em', fontWeight: '600' }], 'label-lg': ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '0.01em', fontWeight: '600' }], 'label-md': ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.02em', fontWeight: '600' }], 'body-lg': ['1rem', { lineHeight: '1.5rem', fontWeight: '400' }] } } } };</script><style>@layer base { html, body { width: 100%; margin: 0; padding: 0; min-height: 100%; } body { overscroll-behavior-y: none; -webkit-tap-highlight-color: transparent; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } } .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; font-size: 24px; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col selection:bg-secondary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="CleanSchool Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXt6MC5OMY-M3atl4AC4WeQr4zBqhCVioYamuqcjzdeCjqYUobc-p0VWZNQBfIoTJaR7JuAaW4U6avCa3kkHws_nxIwPOl4ocjEENW48LLuIiWymjP8odxYPM2pM0TlVekaqwFFS5XDArRp5QFkDGCsXPK2e2Fz6HNqhGtusg46bD2Lns0wqlD3nCsqj3DrkWBQylDCD-1ebjWuj-mvuLE94C3YIPQKKaJGsnFocjrNfHKUhnA5R3g"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-1.5"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">CleanSchool</span><span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm uppercase tracking-wide">Custodial</span></div><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Admin</span></div></div><div class="flex items-center gap-space-sm flex-shrink-0"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined">notifications</span></button><div class="relative flex items-center justify-center p-0.5 rounded-full ring-2 ring-surface-variant"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApO-p-lNbv2yzxyZ3zZW2WVwOJx3J4Mq1oFTq_K2D8bIQC5K22KfCMtukdRJ_f8iQ5UU72mGvhpoRxAUsP0HAwokdGaYucDj3NqWMDpYa3e-ST5oF1vz-fCKE-18o4A8Q380Uz7jqJkOb6o8BfWTEGPuM9v6LW61gFsQLMr9i2vAtpOqVMZ57XSrHrIjQbom0c3tw3plXy0L2uu4muSIkOS8Th2JhTfb76LkS73IoL5QmqHn4RX8hI"/></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-28 bg-surface"><div class="flex flex-col w-full">
+<!-- Toast Notification Container -->
+<div class="fixed top-20 left-4 right-4 z-50 flex items-center gap-space-sm p-space-md rounded-xl bg-primary-container text-on-primary shadow-xl transform -translate-y-28 opacity-0 pointer-events-none transition-all duration-300" id="toastNotification">
+<span class="material-symbols-outlined text-tertiary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1 min-w-0">
+<p class="font-label-lg text-label-lg text-white" id="toastMessage">Cleaning assignment dispatched!</p>
+<p class="font-body-sm text-body-sm text-on-primary-container">Room 204 students notified via app.</p>
+</div>
+</div>
+<!-- Operational Context Bar -->
+<div class="px-margin pt-space-md pb-space-sm">
+<div class="flex items-center justify-between gap-space-sm mb-space-xs">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="inline-flex w-2.5 h-2.5 rounded-full bg-on-tertiary-container animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Campus Operations</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Term 2 • Week 8</span>
+</div>
+<div class="flex items-end justify-between gap-space-md">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-semibold tracking-tight">Lincoln Middle School</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Executive custodial readiness &amp; sanitation log</p>
+</div>
+<!-- Campus Shift Selector Switch -->
+<div class="bg-surface-container-high p-1 rounded-xl flex items-center shadow-sm">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-secondary font-label-sm text-label-sm shadow-sm transition-all" id="viewActiveBtn" onclick="toggleShiftView('live')">Live</button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all" id="viewAuditBtn" onclick="toggleShiftView('audit')">Audit</button>
+</div>
+</div>
+</div>
+<!-- Campus Mascot & High-level Status Banner -->
+<div class="px-margin my-space-sm">
+<div class="relative overflow-hidden rounded-xl bg-primary-container text-on-primary p-space-md shadow-md">
+<div class="relative z-10 flex items-center justify-between">
+<div class="space-y-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]">verified</span>
+<span class="font-label-md text-label-md text-secondary-fixed uppercase tracking-wider">Health Audit Compliant</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-white font-semibold">Afternoon Clean Cycle Active</p>
+<p class="font-body-sm text-body-sm text-on-primary-container">Next campus-wide inspection at 16:30 EST</p>
+</div>
+<div class="w-14 h-14 rounded-full bg-secondary flex items-center justify-center flex-shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-white text-[30px]" style="font-variation-settings: 'FILL' 1;">cleaning_services</span>
+</div>
+</div>
+<!-- Decorative radial shimmer -->
+<div class="absolute -right-10 -bottom-10 w-36 h-36 rounded-full bg-secondary/30 blur-2xl pointer-events-none"></div>
+</div>
+</div>
+<!-- Quick Action Command Row -->
+<div class="px-margin py-space-xs">
+<div class="flex items-center gap-space-sm overflow-x-auto no-scrollbar pb-1">
+<button class="flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-secondary text-on-secondary font-label-md text-label-md shadow-md active:scale-95 transition-transform" onclick="scrollToDispatcher()">
+<span class="material-symbols-outlined text-[18px]">add_task</span>
+<span>+ New Task</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-surface-container-high text-on-surface font-label-md text-label-md shadow-sm active:scale-95 transition-transform hover:bg-surface-container-highest" onclick="triggerQuickAction('Assign Classes modal launched')">
+<span class="material-symbols-outlined text-[18px]">meeting_room</span>
+<span>Assign Classes</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-surface-container-high text-on-surface font-label-md text-label-md shadow-sm active:scale-95 transition-transform hover:bg-surface-container-highest" onclick="triggerExportReport()">
+<span class="material-symbols-outlined text-[18px]">cloud_download</span>
+<span>Export CSV</span>
+</button>
+</div>
+</div>
+<!-- Real-Time Metrics & KPI Grid (2x2) -->
+<div class="px-margin py-space-sm">
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- KPI 1: Submissions -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Submissions</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+</div>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline gap-1.5">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold">142</span>
+<span class="font-label-sm text-label-sm text-on-tertiary-container font-semibold">94%</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 94%;"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-1">Target 150 daily</span>
+</div>
+</div>
+<!-- KPI 2: Pending Verifications -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Pending Audit</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary-container">
+<span class="material-symbols-outlined text-[18px]">pending_actions</span>
+</div>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline gap-1.5">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold">12</span>
+<span class="font-label-sm text-label-sm text-error font-semibold">Action req.</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 leading-tight">3 rooms awaiting faculty signoff</p>
+</div>
+</div>
+<!-- KPI 3: Active Rooms -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Active Zones</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[18px]">domain</span>
+</div>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline gap-1.5">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold">8</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">/ 10 Wings</span>
+</div>
+<div class="flex items-center gap-1 mt-2">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">East &amp; West Quad</span>
+</div>
+</div>
+</div>
+<!-- KPI 4: Compliance Score + Sparkline -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Hygiene Index</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+</div>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline justify-between">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-tertiary-container font-bold">98%</span>
+<span class="font-label-sm text-label-sm text-on-tertiary-container font-semibold">+1.4%</span>
+</div>
+<!-- Micro SVG Sparkline -->
+<div class="w-full h-6 mt-1 flex items-end">
+<svg class="w-full h-full text-on-tertiary-container overflow-visible" preserveaspectratio="none" viewbox="0 0 100 24">
+<path d="M0,20 L15,18 L30,22 L45,14 L60,16 L75,8 L90,10 L100,2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Create & Dispatch Task Card (Quick Dispatcher) -->
+<div class="px-margin py-space-sm" id="dispatcherSection">
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-md">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">send_time_extension</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Quick Task Dispatcher</h3>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">Standard Protocol</span>
+</div>
+<form class="space-y-space-md" id="dispatchForm" onsubmit="handleDispatch(event)">
+<!-- Task Title Input -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium flex items-center justify-between" for="taskTitle">
+<span>Task Protocol Title</span>
+<span class="text-secondary font-semibold">Required</span>
+</label>
+<div class="relative">
+<input class="w-full h-12 px-space-md bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:shadow-[0_0_0_2px_rgba(0,81,213,0.3)] transition-all" id="taskTitle" placeholder="e.g. Science Lab Chemical Wipe-down" required="" type="text" value="End of Day Deep Clean &amp; Sanitization"/>
+</div>
+</div>
+<!-- Room & Zone Selectors (Stacked Mobile Friendly) -->
+<div class="grid grid-cols-1 gap-space-sm">
+<!-- Room Selector -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium" for="roomSelect">Assigned Class / Room</label>
+<div class="relative flex items-center">
+<select class="w-full h-12 px-space-md pr-10 bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md appearance-none focus:outline-none focus:shadow-[0_0_0_2px_rgba(0,81,213,0.3)]" id="roomSelect">
+<option selected="" value="room-204">Grade 8-B (Room 204) • West Hall</option>
+<option value="room-101">Grade 7-A (Room 101) • East Wing</option>
+<option value="room-305">Biology Lab 3 (Room 305) • Sci Wing</option>
+<option value="room-gym">Junior Gymnasium • Athletic Wing</option>
+<option value="room-art">Art Studio (Room 114) • North Annex</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 pointer-events-none text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Zone Selector -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium" for="zoneSelect">Designated Sanitation Zone</label>
+<div class="relative flex items-center">
+<select class="w-full h-12 px-space-md pr-10 bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md appearance-none focus:outline-none focus:shadow-[0_0_0_2px_rgba(0,81,213,0.3)]" id="zoneSelect">
+<option selected="" value="zone-desks">Desk Sanitization &amp; Sweeping</option>
+<option value="zone-whiteboard">Whiteboard &amp; Tech Surface Care</option>
+<option value="zone-waste">Waste Segregation &amp; Bin Lining</option>
+<option value="zone-windows">Ventilation Grates &amp; Window Sills</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 pointer-events-none text-on-surface-variant text-[20px]">layers</span>
+</div>
+</div>
+</div>
+<!-- Deadline & Resubmission Settings -->
+<div class="p-space-sm rounded-xl bg-surface-container-low space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">timer</span>
+<span class="font-label-md text-label-md text-on-surface">Inspection Deadline</span>
+</div>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container text-secondary font-label-md text-label-md font-semibold">Today, 4:30 PM</span>
+</div>
+<!-- Toggle: Allow Resubmission if Rejected -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Allow Resubmission</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Allows student re-clean if unapproved</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="resubmissionToggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full h-12 rounded-xl bg-secondary hover:bg-on-secondary-fixed text-on-secondary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-md active:scale-[0.99] transition-all" id="dispatchSubmitBtn" type="submit">
+<span class="material-symbols-outlined text-[20px]">send</span>
+<span>Dispatch Task to Students</span>
+</button>
+</form>
+</div>
+</div>
+<!-- Live Operations Feed & Activity Log -->
+<div class="px-margin pt-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Live Audit Stream</h3>
+<span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+</div>
+<button class="font-label-sm text-label-sm text-secondary hover:underline flex items-center gap-1" onclick="refreshFeed()">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Sync</span>
+</button>
+</div>
+<!-- Feed Items Container -->
+<div class="space-y-space-sm" id="activityFeedList">
+<!-- Activity Card 1 (Approved) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs transition-all hover:bg-surface-container-low/50">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center font-label-md text-label-md text-secondary font-bold flex-shrink-0">
+              ML
+            </div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Marcus Lin</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">• Room 204</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Assigned: Ms. Alvarez (Homeroom)</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-tertiary-container font-label-sm text-label-sm font-semibold flex-shrink-0">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            Approved
+          </span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">schedule</span>
+            4 mins ago (15:42)
+          </span>
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-0.5">
+            Zone: Desks &amp; Board
+          </span>
+</div>
+</div>
+<!-- Activity Card 2 (Pending Faculty Review) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs transition-all hover:bg-surface-container-low/50">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center font-label-md text-label-md text-on-surface font-bold flex-shrink-0">
+              SK
+            </div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Sora Kuroda</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">• Room 101</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Assigned: Mr. Henderson (Physics)</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-variant text-on-secondary-fixed font-label-sm text-label-sm font-semibold flex-shrink-0">
+<span class="material-symbols-outlined text-[14px]">hourglass_top</span>
+            Verifying
+          </span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">schedule</span>
+            11 mins ago (15:35)
+          </span>
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-0.5">
+            Zone: Lab Tables
+          </span>
+</div>
+</div>
+<!-- Activity Card 3 (Action Required / Remediate) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs transition-all hover:bg-surface-container-low/50">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-label-md text-label-md font-bold flex-shrink-0">
+              ED
+            </div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Ethan Davies</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">• Gym A</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Assigned: Coach Miller (Athletics)</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex-shrink-0">
+<span class="material-symbols-outlined text-[14px]">priority_high</span>
+            Redo Needed
+          </span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">schedule</span>
+            28 mins ago (15:18)
+          </span>
+<span class="font-label-sm text-label-sm text-error font-medium">
+            Bleacher floor unswept
+          </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Campus Facility Zone Gallery -->
+<div class="px-margin pt-space-lg pb-space-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Active Sanitation Spots</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Live Photo Log</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="space-y-1.5">
+<div class="h-28 rounded-xl overflow-hidden shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="Pristine high school classroom interior with neat blue desks, gleaming polished linoleum floor, sun streaming through wide windows, certified clean tag visible, architectural modern style, cinematic lighting, ultra-clean." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIpTQbOAvqBV0WJgmHwV8gnPZ7BvS_kkQecpe8vIxF545QAeZEz9OJchIv7vxQDo7Po1CC62UArByo4YFg2ZdA6oby23hGLsNl93BHK4GpGlZhRL765NYA7ryvcReEFeRwSsJzZynl8WJlTpLl32sf7sE9RtfhXDhz-tcw4WSzaoOLatN0MbUvzpBWD9xATiw8DCQJ1s5Za3ViMrW89Py61TXHDhqq5bTtW1ZpRzUdj0f99NA_uKQR"/>
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm backdrop-blur-sm">
+            Room 204
+          </span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface font-semibold">Homeroom Wing B</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Wiped with Eco-Shield 4</p>
+</div>
+<div class="space-y-1.5">
+<div class="h-28 rounded-xl overflow-hidden shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="Modern junior high chemistry laboratory with clean black granite counters, spotless glass test tubes, shiny chrome faucets, high sanitation standards, bright institutional lighting, pristine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWu4zRmg-wWCSaUhfNMQo_HSDzC2i6XjY-SzttTqAPCrSBdZxAFJI_UvCn5gRWCJLU4DrFkr3AoAAWBQM6YhI2a6sRzfQlxrccSmknOdPefuZlVwWyy3Cylj2PM_YRIvKQyDPXNu-czvBzCgoyJi1tV6-HONejXLXzMQvKXb7ImOwypNe2XkwPGtxU_uxY0wgwce97uq5HzO6gRmmTBHXX3n2jHEQA7cctcSUPuh6eslZXKmgvwtv4"/>
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm backdrop-blur-sm">
+            Lab 305
+          </span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface font-semibold">Science Corridor</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sanitized 14:45</p>
+</div>
+</div>
+</div>
+<!-- End of Day Inspection Protocol Footer Widget -->
+<div class="px-margin py-space-md">
+<div class="p-space-md rounded-xl bg-surface-container flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-secondary text-[26px]">security</span>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Supabase DB Sync: Online</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">All 142 records backed up safely</p>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-sm active:scale-95 transition-transform flex-shrink-0" onclick="triggerQuickAction('Server synced successfully')">
+        Verify Sync
+      </button>
+</div>
+</div>
+</div>
+<script>
+  function showToast(title, subtitle) {
+    const toast = document.getElementById('toastNotification');
+    const msg = document.getElementById('toastMessage');
+    if (msg && title) msg.textContent = title;
+    
+    toast.classList.remove('-translate-y-28', 'opacity-0', 'pointer-events-none');
+    toast.classList.add('translate-y-0', 'opacity-100');
+    
+    setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('-translate-y-28', 'opacity-0', 'pointer-events-none');
+    }, 3200);
+  }
+
+  function handleDispatch(e) {
+    e.preventDefault();
+    const btn = document.getElementById('dispatchSubmitBtn');
+    const originalText = btn.innerHTML;
+    
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">sync</span><span>Dispatching...</span>';
+    
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+      showToast('Task successfully dispatched!', 'Push notification sent to student devices.');
+      
+      // Prepend dynamic item to activity feed
+      const feed = document.getElementById('activityFeedList');
+      const roomSelect = document.getElementById('roomSelect');
+      const selectedRoom = roomSelect.options[roomSelect.selectedIndex].text.split('•')[0].trim();
+      
+      const newCard = document.createElement('div');
+      newCard.className = 'p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs transition-all border-l-4 border-secondary';
+      newCard.innerHTML = `
+        <div class="flex items-start justify-between gap-space-xs">
+          <div class="flex items-center gap-space-sm min-w-0">
+            <div class="w-9 h-9 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-label-md text-label-md font-bold flex-shrink-0">
+              NEW
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">All Students</span>
+                <span class="font-body-sm text-body-sm text-on-surface-variant truncate">• ${selectedRoom}</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant truncate">Dispatched just now</p>
+            </div>
+          </div>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-variant text-secondary font-label-sm text-label-sm font-semibold flex-shrink-0">
+            <span class="material-symbols-outlined text-[14px]">send</span>
+            Issued
+          </span>
+        </div>
+      `;
+      feed.insertBefore(newCard, feed.firstChild);
+    }, 850);
+  }
+
+  function scrollToDispatcher() {
+    const el = document.getElementById('dispatcherSection');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('taskTitle').focus();
+    }
+  }
+
+  function triggerQuickAction(text) {
+    showToast(text, 'Operation executed by Administrator.');
+  }
+
+  function triggerExportReport() {
+    showToast('Exporting Supabase Report...', 'Downloading CSV for Lincoln Middle School audit.');
+  }
+
+  function refreshFeed() {
+    showToast('Feed Refreshed', 'Retrieved latest custodian verifications.');
+  }
+
+  function toggleShiftView(type) {
+    const liveBtn = document.getElementById('viewActiveBtn');
+    const auditBtn = document.getElementById('viewAuditBtn');
+    
+    if (type === 'live') {
+      liveBtn.className = 'px-3 py-1.5 rounded-lg bg-surface-container-lowest text-secondary font-label-sm text-label-sm shadow-sm transition-all';
+      auditBtn.className = 'px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all';
+      showToast('Live View Mode Active', 'Real-time telemetry updated.');
+    } else {
+      auditBtn.className = 'px-3 py-1.5 rounded-lg bg-surface-container-lowest text-secondary font-label-sm text-label-sm shadow-sm transition-all';
+      liveBtn.className = 'px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all';
+      showToast('Audit Log View Active', 'Displaying compliance history.');
+    }
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)]" data-active-classes="text-secondary font-semibold"><div class="flex items-center justify-around h-16 px-space-xs"><a class="flex flex-col items-center justify-center min-w-[64px] h-12 px-space-xs rounded-xl text-on-surface-variant hover:text-on-surface transition-colors" data-path="student" href="#"><span class="material-symbols-outlined">checklist</span><span class="font-label-sm text-label-sm mt-0.5 tracking-tight">Student</span></a><a class="flex flex-col items-center justify-center min-w-[64px] h-12 px-space-xs rounded-xl text-on-surface-variant hover:text-on-surface transition-colors" data-path="teacher" href="#"><span class="material-symbols-outlined">fact_check</span><span class="font-label-sm text-label-sm mt-0.5 tracking-tight">Teacher</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] h-12 px-space-xs rounded-xl transition-colors text-secondary font-semibold" data-path="admin" href="#"><span class="material-symbols-outlined">dashboard_customize</span><span class="font-label-sm text-label-sm mt-0.5 tracking-tight">Admin</span></a><a class="flex flex-col items-center justify-center min-w-[64px] h-12 px-space-xs rounded-xl text-on-surface-variant hover:text-on-surface transition-colors" data-path="auth" href="#"><span class="material-symbols-outlined">manage_accounts</span><span class="font-label-sm text-label-sm mt-0.5 tracking-tight">Auth</span></a></div></nav></body></html>

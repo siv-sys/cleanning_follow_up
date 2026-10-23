@@ -1,0 +1,6 @@
+{
+  "name": "CleanSchool - Campus Custodial & Sanitation Operations",
+  "description": "Executive custodial readiness, real-time sanitation audit streams, and student-teacher cleaning protocols for Lincoln Middle School.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
