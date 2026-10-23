@@ -1,0 +1,89 @@
+@use '../../styles/tokens' as *;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  min-height: 40px;
+  padding: 0 $space-4;
+  border: 1px solid transparent;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.sm {
+  min-height: 32px;
+  padding: 0 $space-3;
+  font-size: $font-size-xs;
+}
+
+.block {
+  width: 100%;
+}
+
+.primary {
+  background: $color-primary;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background: $color-primary-hover;
+    color: #fff;
+  }
+}
+
+.navy {
+  background: $color-navy;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background: $color-navy-hover;
+    color: #fff;
+  }
+}
+
+.secondary {
+  background: $color-surface;
+  border-color: $color-border-strong;
+  color: $color-text;
+
+  &:hover:not(:disabled) {
+    background: $color-surface-muted;
+    color: $color-text;
+  }
+}
+
+.danger {
+  background: $color-danger;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background: $color-danger-hover;
+    color: #fff;
+  }
+}
+
+.ghost {
+  background: transparent;
+  color: $color-text-muted;
+
+  &:hover:not(:disabled) {
+    background: $color-surface-muted;
+    color: $color-text;
+  }
+}

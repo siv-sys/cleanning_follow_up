@@ -1,0 +1,177 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: $color-bg;
+  color: $color-text;
+  font-family: $font-family;
+  font-size: $font-size-md;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+a {
+  color: $color-primary;
+
+  &:hover {
+    color: $color-primary-hover;
+  }
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  @include focus-ring;
+}
+
+// ---- Form controls (shared so every form looks the same) -------------------
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: $space-2 $space-3;
+  background: $color-surface;
+  border: 1px solid $color-border-strong;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &::placeholder {
+    color: $color-text-subtle;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-focus;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+  }
+
+  &[aria-invalid='true'] {
+    border-color: $color-danger;
+  }
+
+  &:disabled {
+    background: $color-surface-muted;
+    color: $color-text-subtle;
+  }
+}
+
+.textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $font-size-sm;
+  cursor: pointer;
+
+  input {
+    width: 18px;
+    height: 18px;
+    accent-color: $color-primary;
+  }
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+// ---- Simple data table ------------------------------------------------------
+.table-wrap {
+  @include card;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-sm;
+
+  th,
+  td {
+    padding: $space-3 $space-4;
+    text-align: left;
+    border-bottom: 1px solid $color-border;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  th {
+    font-size: $font-size-xs;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: $color-text-muted;
+    background: $color-surface-muted;
+  }
+
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tbody tr:hover {
+    background: $color-surface-muted;
+  }
+}
+
+.muted {
+  color: $color-text-muted;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-wrap: wrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

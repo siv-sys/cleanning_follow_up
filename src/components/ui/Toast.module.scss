@@ -1,0 +1,94 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.region {
+  position: fixed;
+  z-index: $z-toast;
+  right: $space-4;
+  bottom: $space-4;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  width: min(380px, calc(100vw - 2 * #{$space-4}));
+  pointer-events: none;
+
+  @include below-md {
+    bottom: calc(#{$bottom-nav-height} + #{$space-3});
+  }
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-left-width: 4px;
+  box-shadow: $shadow-md;
+  pointer-events: auto;
+  animation: slide 0.18s ease-out;
+
+  > svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.success {
+  border-left-color: $color-success;
+
+  > svg {
+    color: $color-success;
+  }
+}
+
+.error {
+  border-left-color: $color-danger;
+
+  > svg {
+    color: $color-danger;
+  }
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: $font-size-sm;
+  font-weight: 600;
+}
+
+.detail {
+  margin-top: 2px;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  overflow-wrap: anywhere;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background: transparent;
+  color: $color-text-subtle;
+  border-radius: $radius-sm;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-text;
+    background: $color-surface-muted;
+  }
+}

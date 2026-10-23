@@ -1,0 +1,110 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.page {
+  display: grid;
+  min-height: 100dvh;
+
+  @include lg-up {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.aside {
+  display: none;
+
+  @include lg-up {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $space-10;
+    background: $color-navy;
+    background-image: radial-gradient(circle at 20% 15%, rgba(59, 130, 246, 0.35), transparent 50%);
+    color: #dbe4f3;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $font-size-lg;
+  font-weight: 700;
+  color: #fff;
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: $radius-md;
+  background: $color-primary;
+  color: #fff;
+}
+
+.pitch {
+  max-width: 30rem;
+
+  h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: $space-4;
+  }
+
+  p {
+    color: #b9c6dc;
+  }
+}
+
+.formSide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-8 $space-4;
+}
+
+.panel {
+  width: min(420px, 100%);
+}
+
+.mobileBrand {
+  margin-bottom: $space-8;
+  color: $color-navy;
+
+  @include lg-up {
+    display: none;
+  }
+}
+
+.title {
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  color: $color-navy;
+}
+
+.subtitle {
+  margin: $space-1 0 $space-6;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.footer {
+  margin-top: $space-6;
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
+.inlineLink {
+  align-self: flex-end;
+  font-size: $font-size-sm;
+  margin-top: -$space-2;
+}

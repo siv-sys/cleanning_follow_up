@@ -1,0 +1,80 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+// ---- Field -----------------------------------------------------------------
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $color-text;
+}
+
+.required {
+  color: $color-danger;
+  margin-left: 2px;
+}
+
+.hint {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+}
+
+.error {
+  font-size: $font-size-xs;
+  font-weight: 500;
+  color: $color-danger;
+}
+
+// ---- Card ------------------------------------------------------------------
+.card {
+  @include card;
+  padding: $space-5;
+
+  @include below-md {
+    padding: $space-4;
+  }
+}
+
+.cardTitle {
+  font-size: $font-size-md;
+  font-weight: 600;
+  margin-bottom: $space-3;
+}
+
+// ---- Page header -----------------------------------------------------------
+.pageHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $space-4;
+  flex-wrap: wrap;
+  margin-bottom: $space-6;
+}
+
+.pageTitle {
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: $color-navy;
+
+  @include below-md {
+    font-size: $font-size-xl;
+  }
+}
+
+.pageSubtitle {
+  margin-top: $space-1;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+}
+
+.pageActions {
+  display: flex;
+  gap: $space-2;
+  flex-wrap: wrap;
+}
