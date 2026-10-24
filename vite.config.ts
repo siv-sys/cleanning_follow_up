@@ -5,6 +5,12 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   return {
     plugins: [react()],
+    build: {
+      // Default targets emit media-query range syntax (`width<=767px`), which
+      // iOS Safari < 16.4 ignores, breaking every responsive rule on older
+      // iPhones. These targets make the CSS use classic min-/max-width.
+      cssTarget: ['chrome87', 'edge88', 'firefox78', 'safari14'],
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

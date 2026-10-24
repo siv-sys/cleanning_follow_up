@@ -24,9 +24,9 @@ export function StudentTable({
         <thead>
           <tr>
             <th>Member</th>
-            {showHouse && <th>House</th>}
-            <th>Photos</th>
-            <th>Last upload</th>
+            {showHouse && <th className={styles.desktopCell}>House</th>}
+            <th className={styles.desktopCell}>Photos</th>
+            <th className={styles.desktopCell}>Last upload</th>
             {actions && (
               <th>
                 <span className="visually-hidden">Actions</span>
@@ -45,10 +45,20 @@ export function StudentTable({
                   </Link>
                   {s.role === 'supervisor' && <span className={styles.roleTag}>Supervisor</span>}
                   <div className={styles.email}>{s.email}</div>
+                  {/* Phones: the hidden columns, condensed under the name. */}
+                  <div className={styles.mobileMeta}>
+                    {showHouse && `${s.house_name ?? 'No house'} · `}
+                    {s.photo_count} photo{s.photo_count === 1 ? '' : 's'}
+                    {s.last_photo_at && ` · last ${formatDateTime(s.last_photo_at)}`}
+                  </div>
                 </td>
-                {showHouse && <td>{s.house_name ?? <span className="muted">No house</span>}</td>}
-                <td>{s.photo_count}</td>
-                <td>{s.last_photo_at ? formatDateTime(s.last_photo_at) : <span className="muted">—</span>}</td>
+                {showHouse && (
+                  <td className={styles.desktopCell}>{s.house_name ?? <span className="muted">No house</span>}</td>
+                )}
+                <td className={styles.desktopCell}>{s.photo_count}</td>
+                <td className={styles.desktopCell}>
+                  {s.last_photo_at ? formatDateTime(s.last_photo_at) : <span className="muted">—</span>}
+                </td>
                 {actions && (
                   <td className={styles.actions} onClick={(e) => e.stopPropagation()}>
                     {actions(s)}

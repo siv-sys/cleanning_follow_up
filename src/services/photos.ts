@@ -76,44 +76,68 @@ export async function listPhotos(studentId: string): Promise<DailyPhoto[]> {
   return data ?? [];
 }
 
+export const MAX_PHOTOS_PER_UPLOAD = 5;
+
 /**
- * Uploads to {studentId}/{random}.{ext} (the only path the Storage policy
- * accepts), then records the photo. If the insert fails the upload is removed.
+ * Uploads each file to {studentId}/{random}.{ext} (the only path the Storage
+ * policy accepts), then records them in one insert sharing a batch_id and the
+ * description. On any failure every uploaded file is removed again.
  */
-export async function uploadPhoto(studentId: string, file: File, description: string) {
-  const path = `${studentId}/${crypto.randomUUID()}.${extByType[file.type] ?? 'jpg'}`;
+export async function uploadPhotos(studentId: string, files: File[], description: string) {
+  if (files.length === 0) throw new Error('Add at least one photo.');
+  if (files.length > MAX_PHOTOS_PER_UPLOAD) throw new Error(`Add at most ${MAX_PHOTOS_PER_UPLOAD} photos.`);
 
-  const upload = await supabase.storage
-    .from(BUCKET)
-    .upload(path, file, { contentType: file.type, upsert: false });
-  if (upload.error) throw upload.error;
+  const paths = files.map((f) => `${studentId}/${crypto.randomUUID()}.${extByType[f.type] ?? 'jpg'}`);
+  const results = await Promise.allSettled(
+    files.map((f, i) => supabase.storage.from(BUCKET).upload(paths[i], f, { contentType: f.type, upsert: false }))
+  );
+  const uploaded = paths.filter((_, i) => {
+    const r = results[i];
+    return r.status === 'fulfilled' && !r.value.error;
+  });
+  const cleanup = () => (uploaded.length ? supabase.storage.from(BUCKET).remove(uploaded) : Promise.resolve());
 
+  if (uploaded.length !== files.length) {
+    await cleanup();
+    const failed = results.find((r) => r.status === 'rejected' || r.value.error);
+    throw failed?.status === 'fulfilled' ? failed.value.error : (failed as PromiseRejectedResult | undefined)?.reason;
+  }
+
+  const batchId = files.length > 1 ? crypto.randomUUID() : null;
   const { error } = await supabase
     .from('daily_photos')
-    .insert({ photo_path: path, description: description.trim() });
+    .insert(paths.map((photo_path) => ({ photo_path, description: description.trim(), batch_id: batchId })));
   if (error) {
-    await supabase.storage.from(BUCKET).remove([path]);
+    await cleanup();
     throw error;
   }
 }
 
-/** Owner "delete": hides the photo. The row and file are kept for admins. */
-export async function hidePhoto(photo: DailyPhoto) {
-  const { error } = await supabase.rpc('hide_daily_photo', { p_photo_id: photo.id });
+// The functions below take every photo of a post (one upload) at once.
+
+/** Owner "delete": hides the photos. Rows and files are kept for admins. */
+export async function hidePhotos(photos: DailyPhoto[]) {
+  const visible = photos.filter((p) => !p.deleted_at);
+  const results = await Promise.all(visible.map((p) => supabase.rpc('hide_daily_photo', { p_photo_id: p.id })));
+  const error = results.find((r) => r.error)?.error;
   if (error) throw error;
 }
 
-/** Admin only: bring back a photo the owner removed. */
-export async function restorePhoto(photo: DailyPhoto) {
-  const { error } = await supabase.rpc('restore_daily_photo', { p_photo_id: photo.id });
+/** Admin only: bring back photos the owner removed. */
+export async function restorePhotos(photos: DailyPhoto[]) {
+  const results = await Promise.all(photos.map((p) => supabase.rpc('restore_daily_photo', { p_photo_id: p.id })));
+  const error = results.find((r) => r.error)?.error;
   if (error) throw error;
 }
 
-/** Admin only: permanently delete the row, then the file. */
-export async function deletePhotoPermanently(photo: DailyPhoto) {
-  const { error } = await supabase.from('daily_photos').delete().eq('id', photo.id);
+/** Admin only: permanently delete the rows, then the files. */
+export async function deletePhotosPermanently(photos: DailyPhoto[]) {
+  const { error } = await supabase
+    .from('daily_photos')
+    .delete()
+    .in('id', photos.map((p) => p.id));
   if (error) throw error;
-  const { error: fileError } = await supabase.storage.from(BUCKET).remove([photo.photo_path]);
+  const { error: fileError } = await supabase.storage.from(BUCKET).remove(photos.map((p) => p.photo_path));
   if (fileError) throw fileError;
 }
 

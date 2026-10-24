@@ -126,6 +126,8 @@ export type DailyPhoto = {
   photo_path: string;
   description: string;
   created_at: string;
+  /** Shared by photos uploaded together; null for single (older) uploads. */
+  batch_id: string | null;
   /** Set when the owner removed it; such photos are visible to admins only. */
   deleted_at: string | null;
   deleted_by: string | null;
@@ -183,7 +185,7 @@ export type Database = {
       houses: Table<House, { name: string }>;
       house_students: Table<HouseStudent, { student_id: string; house_id: string }, { house_id?: string }>;
       // Server sets student_id and created_at; photos cannot be edited.
-      daily_photos: Table<DailyPhoto, { photo_path: string; description: string }, never>;
+      daily_photos: Table<DailyPhoto, { photo_path: string; description: string; batch_id?: string | null }, never>;
     };
     Views: {
       submission_details: { Row: SubmissionDetail; Relationships: [] };

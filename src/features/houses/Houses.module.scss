@@ -130,6 +130,31 @@
   text-align: right !important;
 }
 
+// Member table on phones: one wrapping column instead of sideways scrolling.
+.desktopCell {
+  @include below-md {
+    display: none;
+  }
+}
+
+.mobileMeta {
+  display: none;
+  margin-top: 2px;
+  color: $color-text-subtle;
+  font-size: $font-size-xs;
+  white-space: normal;
+
+  @include below-md {
+    display: block;
+  }
+}
+
+.rowLink td {
+  @include below-md {
+    white-space: normal !important;
+  }
+}
+
 .pickList {
   display: flex;
   flex-direction: column;

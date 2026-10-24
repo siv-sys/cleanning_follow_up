@@ -4,14 +4,14 @@ import { ArrowLeft, Images, RotateCcw, Trash2 } from 'lucide-react';
 import type { DailyPhoto, StudentOverview } from '../../lib/database.types';
 import { friendlyError } from '../../lib/errors';
 import { getStudent } from '../../services/houses';
-import { deletePhotoPermanently, listPhotos, restorePhoto } from '../../services/photos';
+import { deletePhotosPermanently, listPhotos, restorePhotos } from '../../services/photos';
 import { Button } from '../../components/ui/Button';
 import { PageHeader } from '../../components/ui/Layout';
 import { Alert, EmptyState } from '../../components/ui/Feedback';
 import { PageLoader } from '../../components/ui/Spinner';
 import { useConfirm } from '../../components/ui/ConfirmProvider';
 import { useToast } from '../../components/ui/ToastProvider';
-import { PhotoFeed } from '../photos/PhotoFeed';
+import { PhotoFeed, type PhotoPost } from '../photos/PhotoFeed';
 import { useStaffBase } from './useStaffBase';
 import styles from './Houses.module.scss';
 
@@ -47,19 +47,21 @@ export function StudentPhotosPage() {
     void load();
   }, [load]);
 
-  const handleDelete = async (photo: DailyPhoto) => {
+  const handleDelete = async (post: PhotoPost) => {
+    const many = post.photos.length > 1;
     const ok = await confirm({
-      title: 'Delete this photo permanently?',
-      message: 'The photo and its file are removed from the database. This cannot be undone.',
+      title: many ? `Delete these ${post.photos.length} photos permanently?` : 'Delete this photo permanently?',
+      message: 'The photos and their files are removed from the database. This cannot be undone.',
       confirmLabel: 'Delete permanently',
       tone: 'danger',
     });
     if (!ok) return;
-    setBusyId(photo.id);
+    setBusyId(post.key);
     try {
-      await deletePhotoPermanently(photo);
-      setPhotos((list) => list.filter((p) => p.id !== photo.id));
-      toast.success('Photo deleted permanently');
+      await deletePhotosPermanently(post.photos);
+      const ids = new Set(post.photos.map((p) => p.id));
+      setPhotos((list) => list.filter((p) => !ids.has(p.id)));
+      toast.success(many ? 'Photos deleted permanently' : 'Photo deleted permanently');
     } catch (err) {
       toast.error('Could not delete photo', friendlyError(err));
     } finally {
@@ -67,10 +69,10 @@ export function StudentPhotosPage() {
     }
   };
 
-  const handleRestore = async (photo: DailyPhoto) => {
-    setBusyId(photo.id);
+  const handleRestore = async (post: PhotoPost) => {
+    setBusyId(post.key);
     try {
-      await restorePhoto(photo);
+      await restorePhotos(post.photos);
       toast.success('Photo restored', 'It is visible again to the member and their teachers.');
       await load();
     } catch (err) {
@@ -144,7 +146,7 @@ export function StudentPhotosPage() {
                           size="sm"
                           variant="ghost"
                           icon={<RotateCcw size={14} />}
-                          disabled={busyId === p.id}
+                          disabled={busyId === p.key}
                           onClick={() => void handleRestore(p)}
                         >
                           Restore
@@ -154,7 +156,7 @@ export function StudentPhotosPage() {
                         size="sm"
                         variant="ghost"
                         icon={<Trash2 size={14} />}
-                        loading={busyId === p.id}
+                        loading={busyId === p.key}
                         onClick={() => void handleDelete(p)}
                       >
                         Delete permanently

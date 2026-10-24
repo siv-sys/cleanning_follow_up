@@ -4,14 +4,14 @@ import { useAuth } from '../../auth/AuthProvider';
 import type { DailyPhoto, House } from '../../lib/database.types';
 import { friendlyError } from '../../lib/errors';
 import { getMyHouse } from '../../services/houses';
-import { hidePhoto, listPhotos } from '../../services/photos';
+import { hidePhotos, listPhotos } from '../../services/photos';
 import { Button } from '../../components/ui/Button';
 import { PageHeader } from '../../components/ui/Layout';
 import { Alert, EmptyState } from '../../components/ui/Feedback';
 import { PageLoader } from '../../components/ui/Spinner';
 import { useConfirm } from '../../components/ui/ConfirmProvider';
 import { useToast } from '../../components/ui/ToastProvider';
-import { PhotoFeed } from './PhotoFeed';
+import { PhotoFeed, type PhotoPost } from './PhotoFeed';
 import { UploadCard } from './UploadCard';
 
 export function MyPhotosPage() {
@@ -42,20 +42,22 @@ export function MyPhotosPage() {
     void load();
   }, [load]);
 
-  const handleDelete = async (photo: DailyPhoto) => {
+  const handleDelete = async (post: PhotoPost) => {
+    const many = post.photos.length > 1;
     const ok = await confirm({
-      title: 'Delete this photo?',
-      message: 'It will disappear for you and your teachers. Only a school administrator can still see it.',
+      title: many ? `Delete these ${post.photos.length} photos?` : 'Delete this photo?',
+      message: 'They will disappear for you and your teachers. Only a school administrator can still see them.',
       confirmLabel: 'Delete',
       tone: 'danger',
     });
     if (!ok) return;
-    setDeletingId(photo.id);
+    setDeletingId(post.key);
     try {
       // Hidden, not removed: admins keep the record.
-      await hidePhoto(photo);
-      setPhotos((list) => list.filter((p) => p.id !== photo.id));
-      toast.success('Photo deleted');
+      await hidePhotos(post.photos);
+      const ids = new Set(post.photos.map((p) => p.id));
+      setPhotos((list) => list.filter((p) => !ids.has(p.id)));
+      toast.success(many ? 'Photos deleted' : 'Photo deleted');
     } catch (err) {
       toast.error('Could not delete photo', friendlyError(err));
     } finally {
@@ -101,7 +103,7 @@ export function MyPhotosPage() {
                   size="sm"
                   variant="ghost"
                   icon={<Trash2 size={14} />}
-                  loading={deletingId === p.id}
+                  loading={deletingId === p.key}
                   onClick={() => void handleDelete(p)}
                 >
                   Delete
