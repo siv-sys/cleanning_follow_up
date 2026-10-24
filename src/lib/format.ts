@@ -11,4 +11,9 @@ export const formatDate = (isoDate: string | null | undefined) => {
   return dateOnly.format(new Date(y, m - 1, d));
 };
 
-export const roleLabel = { student: 'Student', teacher: 'Teacher', admin: 'Administrator' } as const;
+export const roleLabel = {
+  student: 'Student',
+  supervisor: 'Supervisor',
+  teacher: 'Teacher',
+  admin: 'Administrator',
+} as const;

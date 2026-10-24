@@ -58,7 +58,71 @@ export function AccountPage() {
             </div>
           </form>
         </Card>
+        <ChangePasswordCard email={profile.email} />
       </div>
     </>
+  );
+}
+
+type PwErrors = Partial<Record<'current' | 'next' | 'confirm', string>>;
+
+function ChangePasswordCard({ email }: { email: string }) {
+  const toast = useToast();
+  const [current, setCurrent] = useState('');
+  const [next, setNext] = useState('');
+  const [confirmPw, setConfirmPw] = useState('');
+  const [errors, setErrors] = useState<PwErrors>({});
+  const [saving, setSaving] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const errs: PwErrors = {};
+    if (!current) errs.current = 'Enter your current password.';
+    if (next.length < 8) errs.next = 'Use at least 8 characters.';
+    else if (next.length > 72) errs.next = 'Use at most 72 characters.';
+    else if (next === current) errs.next = 'Choose a password different from the current one.';
+    if (confirmPw !== next) errs.confirm = 'Passwords do not match.';
+    setErrors(errs);
+    if (Object.keys(errs).length) return;
+
+    setSaving(true);
+    // Re-verify the current password before allowing the change.
+    const { error: verifyError } = await supabase.auth.signInWithPassword({ email, password: current });
+    if (verifyError) {
+      setSaving(false);
+      setErrors({ current: 'Current password is incorrect.' });
+      return;
+    }
+    const { error } = await supabase.auth.updateUser({ password: next });
+    setSaving(false);
+    if (error) {
+      toast.error('Could not change password', friendlyError(error));
+      return;
+    }
+    setCurrent('');
+    setNext('');
+    setConfirmPw('');
+    toast.success('Password changed');
+  };
+
+  return (
+    <Card title="Change password">
+      <form className="stack" onSubmit={handleSubmit} noValidate>
+        <Field label="Current password" required error={errors.current}>
+          <input className="input" type="password" autoComplete="current-password" value={current} onChange={(e) => setCurrent(e.target.value)} />
+        </Field>
+        <Field label="New password" required error={errors.next} hint="At least 8 characters.">
+          <input className="input" type="password" autoComplete="new-password" value={next} onChange={(e) => setNext(e.target.value)} />
+        </Field>
+        <Field label="Confirm new password" required error={errors.confirm}>
+          <input className="input" type="password" autoComplete="new-password" value={confirmPw} onChange={(e) => setConfirmPw(e.target.value)} />
+        </Field>
+        <div>
+          <Button type="submit" loading={saving}>
+            Change password
+          </Button>
+        </div>
+      </form>
+    </Card>
   );
 }

@@ -10,6 +10,9 @@ export function friendlyError(error: unknown): string {
   if (/Failed to fetch|NetworkError/i.test(message)) {
     return 'Network error. Check your connection and try again.';
   }
+  if (/Email not confirmed/i.test(message)) {
+    return 'This account is not activated yet. Ask your school administrator.';
+  }
   if (/Invalid login credentials/i.test(message)) {
     return 'Email or password is incorrect.';
   }

@@ -8,6 +8,7 @@ import { Button } from '../components/ui/Button';
 
 export const homeFor: Record<AppRole, string> = {
   student: '/student',
+  supervisor: '/supervisor',
   teacher: '/teacher',
   admin: '/admin',
 };

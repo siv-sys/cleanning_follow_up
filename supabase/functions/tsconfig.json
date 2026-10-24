@@ -1,0 +1,17 @@
+{
+  // Editor-only config so VS Code can type-check Edge Functions without the
+  // Deno extension. Supabase deploys and runs these files with Deno; this file
+  // is not used at runtime.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": [],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "isolatedModules": true
+  },
+  "include": ["**/*.ts"]
+}

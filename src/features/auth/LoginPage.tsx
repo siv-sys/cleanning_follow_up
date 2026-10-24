@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
 import { supabase, supabaseConfigured } from '../../lib/supabase';
 import { friendlyError } from '../../lib/errors';
 import { Button } from '../../components/ui/Button';
@@ -30,12 +29,8 @@ export function LoginPage() {
   return (
     <AuthLayout
       title="Sign in"
-      subtitle="Use your school account to continue."
-      footer={
-        <>
-          New here? <Link to="/signup">Create an account</Link>
-        </>
-      }
+      subtitle="Use the account your school administrator created for you."
+      footer="Don't have an account or forgot your password? Ask your school administrator."
     >
       <form className={authStyles.form} onSubmit={handleSubmit} noValidate>
         {!supabaseConfigured && (
@@ -60,9 +55,6 @@ export function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Field>
-        <Link to="/forgot-password" className={authStyles.inlineLink}>
-          Forgot password?
-        </Link>
         <Button type="submit" block loading={submitting}>
           Sign in
         </Button>

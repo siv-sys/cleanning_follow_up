@@ -35,25 +35,43 @@ Run `supabase/tests/rls_checks.sql` in the SQL Editor. It creates temporary user
 checks every role rule, and **rolls everything back**. You should see a list of `PASS …`
 notices ending in `ALL CHECKS PASSED`. A `FAIL …` error names the rule that broke.
 
-## 4. Auth settings
+## 4. Turn off public sign-up (required)
 
-**Authentication → URL Configuration**
+The app has **no registration page**. Only administrators create accounts. Removing the form is not
+enough on its own, because the sign-up API is still public. Turn it off on the Supabase side:
 
-- Site URL: `http://localhost:3000` (your production URL once deployed)
-- Redirect URLs: add `http://localhost:3000/login` and `http://localhost:3000/reset-password`
+**Authentication → Sign In / Providers → User Signups** → turn **off** *Allow new users to sign up* → Save.
 
-**Authentication → Sign In / Providers → Email**: keep *Confirm email* on.
+Accounts created by an admin (through the Edge Function below) still work with this off.
 
-Anyone who signs up becomes a **student** with no class, so they see nothing until an admin
-enrols them. To stop open sign-ups, disable *Allow new users to sign up* and invite users from
-**Authentication → Users → Invite** instead.
+## 5. Deploy the `admin-users` Edge Function
 
-## 5. Create the first administrator
+Creating accounts and resetting passwords needs the service-role key, so it runs server-side in
+`supabase/functions/admin-users`. Supabase provides `SUPABASE_URL`, `SUPABASE_ANON_KEY` and
+`SUPABASE_SERVICE_ROLE_KEY` to the function automatically, so there are **no secrets to copy**.
 
-Role changes are only possible through the admin-only RPC or a trusted operator. To bootstrap the first admin:
+**Option A: Dashboard**
 
-1. Sign up in the app with the account that should become the admin.
-2. In the SQL Editor, run (replace the email):
+1. **Edge Functions → Deploy a new function → Via Editor**.
+2. Name it exactly `admin-users`.
+3. Replace the sample code with the contents of `supabase/functions/admin-users/index.ts`.
+4. Click **Deploy**.
+5. Open the function's **Details / Settings** and turn **off** *Verify JWT with legacy secret*
+   (*Enforce JWT verification*). The function checks the caller's session and admin role itself.
+
+**Option B: CLI**
+
+```powershell
+npx supabase login
+npx supabase functions deploy admin-users --project-ref <project-ref> --no-verify-jwt
+```
+
+## 6. Create the first administrator (one time)
+
+With sign-up disabled, the very first account is created in the dashboard:
+
+1. **Authentication → Users → Add user → Create new user**: enter email and password, and tick **Auto Confirm User**.
+2. In the SQL Editor, make it an admin (replace the email):
 
 ```sql
 begin;
@@ -62,19 +80,23 @@ update public.profiles set role = 'admin' where email = 'admin@yourschool.org';
 commit;
 ```
 
-From then on, that admin manages roles in the app (**Users** page, stage 5). Until that page exists,
-promote test teachers the same way, using `role = 'teacher'`.
+From then on, the admin signs in to the app and creates every other account on **Admin → Users**.
 
-## 6. Test accounts
+## 7. Test each role
 
-Create three separate accounts (e.g. `admin@…`, `teacher@…`, `student@…`) and test each one in its own
-browser profile or private window so the sessions don't mix.
+1. Sign in as the admin → **Users** → **Create user**. Create one teacher and one student. Copy each temporary password.
+2. Use a separate private window for each account so the sessions don't mix.
 
 | Check | Expected |
 |---|---|
-| Sign in as each account | Lands on `/admin`, `/teacher` or `/student` respectively |
+| Open `/signup` | "Page not found". There is no registration |
+| Sign in as admin / teacher / student | Lands on `/admin`, `/teacher` or `/student` |
 | Student opens `/admin` or `/teacher` | Redirected back to `/student` |
-| Account page: change name | Saved; toast shown |
+| Admin → Users → change a role | Confirmation dialog, then role updated |
+| Admin changes own role | Disabled in the UI (the database also refuses to remove the last admin) |
+| Admin → Reset password | User can sign in only with the new password |
+| Create user with an existing email | "A user with this email already exists" |
+| Account → Change password (wrong current password) | "Current password is incorrect." |
 | Signed out, open `/student` | Redirected to `/login` |
 
 ## Security model (summary)

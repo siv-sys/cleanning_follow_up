@@ -1,14 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import {
-  BarChart3,
-  ClipboardCheck,
-  ClipboardList,
-  History,
-  ListChecks,
-  School,
-  UserCircle,
-  Users,
-} from 'lucide-react';
+import { Home, Images, UserCircle, UserCog, Users } from 'lucide-react';
 import type { AppRole } from '../../lib/database.types';
 
 export interface NavItem {
@@ -20,21 +11,19 @@ export interface NavItem {
 }
 
 export const navByRole: Record<AppRole, NavItem[]> = {
-  student: [
-    { to: '/student', label: 'My tasks', icon: ClipboardList, end: true },
-    { to: '/student/history', label: 'History', icon: History },
+  student: [{ to: '/student', label: 'My photos', icon: Images, end: true }],
+  supervisor: [
+    { to: '/supervisor', label: 'My photos', icon: Images, end: true },
+    { to: '/supervisor/house', label: 'My house', icon: Home },
   ],
   teacher: [
-    { to: '/teacher', label: 'Submissions', icon: ClipboardCheck, end: true },
+    { to: '/teacher/houses', label: 'Houses', icon: Home },
     { to: '/teacher/students', label: 'Students', icon: Users },
-    { to: '/teacher/reviews', label: 'My reviews', icon: History },
   ],
   admin: [
-    { to: '/admin', label: 'Overview', icon: BarChart3, end: true },
-    { to: '/admin/submissions', label: 'Submissions', icon: ClipboardCheck },
-    { to: '/admin/tasks', label: 'Tasks', icon: ListChecks },
-    { to: '/admin/classes', label: 'Classes', icon: School },
-    { to: '/admin/users', label: 'Users', icon: Users },
+    { to: '/admin/houses', label: 'Houses', icon: Home },
+    { to: '/admin/students', label: 'Students', icon: Users },
+    { to: '/admin/users', label: 'Users', icon: UserCog },
   ],
 };
 

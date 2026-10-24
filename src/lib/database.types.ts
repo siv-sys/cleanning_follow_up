@@ -1,7 +1,10 @@
 ﻿// Hand-written to match supabase/migrations. Regenerate with:
 //   npx supabase gen types typescript --project-id <ref> > src/lib/database.types.ts
 
-export type AppRole = 'student' | 'teacher' | 'admin';
+export type AppRole = 'student' | 'supervisor' | 'teacher' | 'admin';
+/** Roles that belong to a house and upload photos. */
+export const HOUSE_MEMBER_ROLES = ['student', 'supervisor'] as const;
+export const isHouseMemberRole = (role: AppRole) => (HOUSE_MEMBER_ROLES as readonly AppRole[]).includes(role);
 export type SubmissionStatus = 'pending' | 'approved' | 'rejected';
 export type ReviewDecision = 'approved' | 'rejected';
 
@@ -104,6 +107,41 @@ export type SubmissionStatsRow = {
   late: number;
 }
 
+export type House = {
+  id: string;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type HouseStudent = {
+  student_id: string;
+  house_id: string;
+  created_at: string;
+}
+
+export type DailyPhoto = {
+  id: string;
+  student_id: string;
+  photo_path: string;
+  description: string;
+  created_at: string;
+  /** Set when the owner removed it; such photos are visible to admins only. */
+  deleted_at: string | null;
+  deleted_by: string | null;
+}
+
+export type StudentOverview = {
+  student_id: string;
+  full_name: string;
+  email: string;
+  house_id: string | null;
+  house_name: string | null;
+  photo_count: number;
+  last_photo_at: string | null;
+  role: AppRole;
+}
+
 type Table<Row, Insert, Update = Partial<Insert>> = {
   Row: Row;
   Insert: Insert;
@@ -142,15 +180,22 @@ export type Database = {
         { submission_id: string; decision: ReviewDecision; comment?: string | null },
         never
       >;
+      houses: Table<House, { name: string }>;
+      house_students: Table<HouseStudent, { student_id: string; house_id: string }, { house_id?: string }>;
+      // Server sets student_id and created_at; photos cannot be edited.
+      daily_photos: Table<DailyPhoto, { photo_path: string; description: string }, never>;
     };
     Views: {
       submission_details: { Row: SubmissionDetail; Relationships: [] };
+      student_overview: { Row: StudentOverview; Relationships: [] };
     };
     Functions: {
       admin_set_user_role: {
         Args: { p_user_id: string; p_role: AppRole };
         Returns: Profile;
       };
+      hide_daily_photo: { Args: { p_photo_id: string }; Returns: undefined };
+      restore_daily_photo: { Args: { p_photo_id: string }; Returns: undefined };
       submission_stats: {
         Args: { p_from?: string | null; p_to?: string | null };
         Returns: SubmissionStatsRow[];
