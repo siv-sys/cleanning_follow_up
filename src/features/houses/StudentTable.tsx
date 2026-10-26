@@ -25,7 +25,7 @@ export function StudentTable({
           <tr>
             <th>Member</th>
             {showHouse && <th className={styles.desktopCell}>House</th>}
-            <th className={styles.desktopCell}>Photos</th>
+            <th className={styles.desktopCell}>Photos (5 days)</th>
             <th className={styles.desktopCell}>Last upload</th>
             {actions && (
               <th>
@@ -48,7 +48,7 @@ export function StudentTable({
                   {/* Phones: the hidden columns, condensed under the name. */}
                   <div className={styles.mobileMeta}>
                     {showHouse && `${s.house_name ?? 'No house'} · `}
-                    {s.photo_count} photo{s.photo_count === 1 ? '' : 's'}
+                    {s.photo_count} photo{s.photo_count === 1 ? '' : 's'} (5 days)
                     {s.last_photo_at && ` · last ${formatDateTime(s.last_photo_at)}`}
                   </div>
                 </td>

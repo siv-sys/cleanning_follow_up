@@ -115,7 +115,7 @@ export function StudentPhotosPage() {
             <>
               {student.role === 'supervisor' && 'Supervisor · '}
               {student.house_name ?? 'No house'} · {student.email} · {student.photo_count} photo
-              {student.photo_count === 1 ? '' : 's'}
+              {student.photo_count === 1 ? '' : 's'} in the last 5 days
               {isAdmin && removedCount > 0 && ` · ${removedCount} removed by owner`}
             </>
           )
