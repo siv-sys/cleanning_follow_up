@@ -11,7 +11,7 @@ export type ReviewDecision = 'approved' | 'rejected';
 export type Profile = {
   id: string;
   email: string;
-  full_name: string;
+  full_name: string; 
   role: AppRole;
   created_at: string;
   updated_at: string;

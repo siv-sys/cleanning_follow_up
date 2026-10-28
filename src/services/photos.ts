@@ -130,15 +130,47 @@ export async function restorePhotos(photos: DailyPhoto[]) {
   if (error) throw error;
 }
 
-/** Admin only: permanently delete the rows, then the files. */
-export async function deletePhotosPermanently(photos: DailyPhoto[]) {
-  const { error } = await supabase
-    .from('daily_photos')
-    .delete()
-    .in('id', photos.map((p) => p.id));
-  if (error) throw error;
-  const { error: fileError } = await supabase.storage.from(BUCKET).remove(photos.map((p) => p.photo_path));
-  if (fileError) throw fileError;
+type PhotoRef = Pick<DailyPhoto, 'id' | 'photo_path'>;
+
+/** Keeps each request's id list (sent in the URL) short. */
+const DELETE_CHUNK = 100;
+
+/** Admin only: permanently delete the rows, then the files, a chunk at a time. */
+export async function deletePhotosPermanently(photos: PhotoRef[]) {
+  for (let i = 0; i < photos.length; i += DELETE_CHUNK) {
+    const chunk = photos.slice(i, i + DELETE_CHUNK);
+    const { error } = await supabase
+      .from('daily_photos')
+      .delete()
+      .in('id', chunk.map((p) => p.id));
+    if (error) throw error;
+    const { error: fileError } = await supabase.storage.from(BUCKET).remove(chunk.map((p) => p.photo_path));
+    if (fileError) throw fileError;
+  }
+}
+
+const PAGE_SIZE = 1000;
+
+/**
+ * Admin only: every photo of these students (hidden ones too) uploaded from
+ * `from` up to, but not including, `to`.
+ */
+export async function listPhotosInRange(studentIds: string[], from: Date, to: Date): Promise<PhotoRef[]> {
+  if (studentIds.length === 0) return [];
+  const all: PhotoRef[] = [];
+  for (let start = 0; ; start += PAGE_SIZE) {
+    const { data, error } = await supabase
+      .from('daily_photos')
+      .select('id, photo_path')
+      .in('student_id', studentIds)
+      .gte('created_at', from.toISOString())
+      .lt('created_at', to.toISOString())
+      .order('id')
+      .range(start, start + PAGE_SIZE - 1);
+    if (error) throw error;
+    all.push(...(data ?? []));
+    if (!data || data.length < PAGE_SIZE) return all;
+  }
 }
 
 export async function photoUrl(path: string): Promise<string> {

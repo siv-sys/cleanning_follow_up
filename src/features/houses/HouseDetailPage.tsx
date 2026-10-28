@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Pencil, Trash2, UserMinus, UserPlus, Users } from 'lucide-react';
+import { ArrowLeft, CalendarX, Pencil, Trash2, UserMinus, UserPlus, Users } from 'lucide-react';
 import type { House, StudentOverview } from '../../lib/database.types';
 import { friendlyError } from '../../lib/errors';
 import { deleteHouse, getHouse, listStudents, removeFromHouse } from '../../services/houses';
@@ -11,6 +11,7 @@ import { PageLoader } from '../../components/ui/Spinner';
 import { useConfirm } from '../../components/ui/ConfirmProvider';
 import { useToast } from '../../components/ui/ToastProvider';
 import { AddStudentsModal } from './AddStudentsModal';
+import { DeleteOldPhotosModal } from './DeleteOldPhotosModal';
 import { HouseFormModal } from './HouseFormModal';
 import { StudentTable } from './StudentTable';
 import { useStaffBase } from './useStaffBase';
@@ -31,6 +32,8 @@ export function HouseDetailPage({ houseId: fixedHouseId }: { houseId?: string } 
   const [adding, setAdding] = useState(false);
   const [renaming, setRenaming] = useState(false);
   const [removingId, setRemovingId] = useState<string | null>(null);
+  const [cleaning, setCleaning] = useState(false);
+  const studentIds = useMemo(() => students.map((s) => s.student_id), [students]);
 
   const load = useCallback(async () => {
     setLoadError(null);
@@ -121,6 +124,14 @@ export function HouseDetailPage({ houseId: fixedHouseId }: { houseId?: string } 
                   <Button variant="secondary" icon={<Trash2 size={16} />} onClick={() => void handleDelete()}>
                     Delete
                   </Button>
+                  <Button
+                    variant="secondary"
+                    icon={<CalendarX size={16} />}
+                    disabled={students.length === 0}
+                    onClick={() => setCleaning(true)}
+                  >
+                    Delete old photos
+                  </Button>
                 </>
               )}
               <Button icon={<UserPlus size={16} />} onClick={() => setAdding(true)}>
@@ -178,6 +189,14 @@ export function HouseDetailPage({ houseId: fixedHouseId }: { houseId?: string } 
       )}
       {isAdmin && (
         <HouseFormModal open={renaming} house={house} onClose={() => setRenaming(false)} onSaved={() => void load()} />
+      )}
+      {isAdmin && (
+        <DeleteOldPhotosModal
+          house={cleaning ? house : null}
+          studentIds={studentIds}
+          onClose={() => setCleaning(false)}
+          onDeleted={() => void load()}
+        />
       )}
     </>
   );
